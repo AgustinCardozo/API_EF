@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace API_EF.Repository
+namespace API_EF.Database.Repository
 {
     public class UsuarioRepository : IUsuarioRepository
     {
