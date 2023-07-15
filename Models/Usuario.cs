@@ -12,4 +12,13 @@
         public DateTime? UpdatedAt { get; set; }
         public DateTime? DeletedAt { get; set; }
     }
+
+    public class UsuarioResponse
+    {
+        public int id { get; set; }
+        public string usuario { get; set; }
+        public string mail { get; set; }
+        public string nombre { get; set; }
+        public string rol { get; set; }
+    }
 }

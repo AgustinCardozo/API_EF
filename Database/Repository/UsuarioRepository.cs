@@ -27,10 +27,18 @@ namespace API_EF.Database.Repository
             db.SaveChanges();
         }
 
-        public List<Usuario> GetUsuarios()
+        public List<UsuarioResponse> GetUsuarios()
         {
             using var db = new DBContext();
-            return db.Usuarios.ToList();
+            return db.Usuarios
+                .Select(user => new UsuarioResponse { 
+                    id = user.Id,
+                    usuario = user.Usuario1,
+                    nombre = user.Nombre,
+                    mail = user.Mail,
+                    rol = user.Rol
+                })
+                .ToList();
         }
 
         public Usuario GetUsuarioById(int idEmpleado)

@@ -41,10 +41,16 @@ namespace API_EF.Controllers
         [HttpGet, Route("{id}")]
         public IActionResult GetUsuarioById(int id)
         {
-            var empleado = _usuarioRepository.GetUsuarioById(id);
-            if(empleado == null)
+            var user = _usuarioRepository.GetUsuarioById(id);
+            if(user is null)
                 return NotFound($"No se encontro al usuario con id: {id}");
-            return Ok(empleado);
+            return Ok(new UsuarioResponse {
+                id = user.Id,
+                usuario = user.Usuario1,
+                nombre = user.Nombre,
+                mail = user.Mail,
+                rol = user.Rol
+            });
         }
 
         [HttpPost, Route("")]

@@ -4,7 +4,7 @@
     {
         void AddUsuario(Usuario usuario);
         void Delete(int id);
-        List<Usuario> GetUsuarios();
+        List<UsuarioResponse> GetUsuarios();
         Usuario GetUsuarioById(int idEmpleado);
         public void SetPassword(int id, string pass);
     }
