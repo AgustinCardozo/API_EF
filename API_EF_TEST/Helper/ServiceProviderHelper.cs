@@ -41,13 +41,18 @@ namespace API_EF_TEST.Helper
                 .UseStartup<EmptyStartup>()
                 .Build();
 
-            //serviceCollection.AddDbContext<DBContext>(
-            //    options => options.UseSqlServer("Data Source=.\\SQLEXPRESS;Initial Catalog=GD2015C1;TrustServerCertificate=True;Integrated Security=True;")
-            //    //ServiceLifetime.Transient
-            //    );
+            var configuration = new ConfigurationBuilder()
+                .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                .AddJsonFile("testsettings.json")
+                .Build();
+
+            serviceCollection.AddDbContext<DBContext>(
+                //options => options.UseSqlServer("Data Source=.\\SQLEXPRESS;Initial Catalog=GD2015C1;TrustServerCertificate=True;Integrated Security=True;")
+                options => options.UseSqlServer(configuration.GetConnectionString("DatabaseConnection"))
+            );
             serviceCollection.AddTransient<IUsuarioRepository, UsuarioRepository>();
             //serviceCollection.AddTransient<EmpleadoController>();
-            //serviceCollection.AddTransient<ProductoController>();
+            serviceCollection.AddTransient<ProductoController>();
             serviceCollection.AddTransient<UsuarioController>();
 
             var serviceProvider = serviceCollection.BuildServiceProvider(new ServiceProviderOptions()

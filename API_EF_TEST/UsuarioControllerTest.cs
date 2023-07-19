@@ -7,6 +7,8 @@ namespace API_EF_TEST
     public class UsuarioControllerTest : CommonTest
     {
         private UsuarioController usuarioController;
+        private const string message = "No se encontro";
+
         protected override void InitServices()
         {
             usuarioController = (UsuarioController)scope.ServiceProvider.GetService(typeof(UsuarioController));
@@ -16,8 +18,7 @@ namespace API_EF_TEST
         public void GetUsuarios_Test()
         {
             var response = (ObjectResult)usuarioController.GetUsuarios();
-            Assert.NotNull(response);
-            Assert.True(response.StatusCode == StatusCodes.Status200OK);
+            AssertGetListado(response);
         }
 
         [Theory]
@@ -26,22 +27,13 @@ namespace API_EF_TEST
         public void GetUsuarioById_Test(int userId)
         {
             var response = (ObjectResult)usuarioController.GetUsuarioById(userId);
-            if(response.StatusCode == StatusCodes.Status404NotFound)
-            {
-                const string message = "No se encontro al usuario";
-                Assert.Contains(message, response.Value?.ToString());
-                return;
-            }
-            var user = response.Value;
-            Assert.NotNull(user);
-            Assert.True(response.StatusCode == StatusCodes.Status200OK);
+            AssertGetData(response, message);
         }
 
-        [Fact]
-        public void DeleteUsuarioInvalido_Test()
+        [Theory]
+        [InlineData(100)]
+        public void DeleteUsuarioInvalido_Test(int userId)
         {
-            const int userId = 100;
-            const string message = "No se encontro el usuario";
             var response = (ObjectResult)usuarioController.DeleteUsuario(userId);
             Assert.True(response.StatusCode == StatusCodes.Status400BadRequest);
             Assert.Contains(message, response.Value?.ToString());
