@@ -15,7 +15,7 @@ namespace API_EF_TEST
         [Fact]
         public async Task GetUsuarios_Test()
         {
-            var response = (ObjectResult)await productoController.GetProductos();
+            var response = (ObjectResult)await productoController.Get();
             AssertGetListado(response);
         }
 
@@ -26,12 +26,12 @@ namespace API_EF_TEST
         {
             if (codigo is null)
             {
-                var statusResponse = (StatusCodeResult)await productoController.GetProducto("TEST");
+                var statusResponse = (StatusCodeResult)await productoController.Get("TEST");
                 Assert.True(statusResponse.StatusCode == StatusCodes.Status404NotFound);
                 return;
 
             }
-            var response = (ObjectResult)await productoController.GetProducto(String.Format("{0:D8}", codigo));
+            var response = (ObjectResult)await productoController.Get(String.Format("{0:D8}", codigo));
             AssertGetData(response);
         }
     }
