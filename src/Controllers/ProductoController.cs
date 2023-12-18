@@ -7,25 +7,25 @@ namespace API_EF.Controllers
     [Route("API/productos")]
     public class ProductoController : ControllerBase
     {
-        private readonly DBContext dBContext;
+        private readonly IProductoRepository productoRepository;
 
-        public ProductoController(DBContext dBContext)
+        public ProductoController(IProductoRepository productoRepository)
         {
-            this.dBContext = dBContext;
+            this.productoRepository = productoRepository;
         }
 
         [HttpGet]
         [Route("")]
-        public async Task<IActionResult> GetProductos()
+        public async Task<IActionResult> Get()
         {
-            return Ok(await dBContext.Productos.ToListAsync());
+            return Ok(await productoRepository.Get());
         }
 
         [HttpGet]
         [Route("{codigo}")]
-        public async Task<IActionResult> GetProducto(string codigo)
+        public async Task<IActionResult> Get(string codigo) 
         {
-            var producto = await dBContext.Productos.FirstOrDefaultAsync(prod => prod.ProdCodigo == codigo);
+            var producto = await productoRepository.Get(codigo);
             if(producto == null)
             {
                 return NotFound();

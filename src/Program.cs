@@ -17,6 +17,7 @@ builder.Services.AddControllers().AddNewtonsoftJson(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<IUsuarioRepository, UsuarioRepository>();
+builder.Services.AddTransient<IProductoRepository, ProductoRepository>();
 builder.Services.AddDbContext<DBContext>();
 builder.Services.AddCors(policy =>
 {
