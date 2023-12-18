@@ -51,6 +51,7 @@ namespace API_EF_TEST.Helper
                 options => options.UseSqlServer(configuration.GetConnectionString("DatabaseConnection"))
             );
             serviceCollection.AddTransient<IUsuarioRepository, UsuarioRepository>();
+            serviceCollection.AddTransient<IProductoRepository, ProductoRepository>();
             //serviceCollection.AddTransient<EmpleadoController>();
             serviceCollection.AddTransient<ProductoController>();
             serviceCollection.AddTransient<UsuarioController>();
