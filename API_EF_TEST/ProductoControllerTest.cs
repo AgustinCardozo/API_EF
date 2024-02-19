@@ -13,7 +13,7 @@ namespace API_EF_TEST
         }
 
         [Fact]
-        public async Task GetUsuarios_Test()
+        public async Task GetProductos_Test()
         {
             var response = (ObjectResult)await productoController.Get();
             AssertGetListado(response);
@@ -22,7 +22,7 @@ namespace API_EF_TEST
         [Theory]
         [InlineData(30)]
         [InlineData(null)]
-        public async Task GetUsuarioById_Test(int? codigo)
+        public async Task GetProductoByCodigo_Test(int? codigo)
         {
             if (codigo is null)
             {

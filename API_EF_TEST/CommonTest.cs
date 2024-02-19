@@ -5,21 +5,16 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace API_EF_TEST
 {
-    public abstract class CommonTest : IDisposable
+    public abstract class CommonTest 
     {
         protected static IServiceScope scope;
 
-        public CommonTest()
+        protected CommonTest()
         {
             ServiceProvider serviceProvider = ServiceProviderHelper.GenerateServiceProvider();
             scope = serviceProvider.CreateScope();
 
             InitServices();
-        }
-
-        public void Dispose()
-        {
-            scope.Dispose();
         }
 
         protected abstract void InitServices();
@@ -30,7 +25,7 @@ namespace API_EF_TEST
             Assert.True(response.StatusCode == StatusCodes.Status200OK);
         }
 
-        public static void AssertGetData(ObjectResult response, string? message = null)
+        public static void AssertGetData(ObjectResult response, string message = null)
         {
             if (response.StatusCode == StatusCodes.Status404NotFound)
             {

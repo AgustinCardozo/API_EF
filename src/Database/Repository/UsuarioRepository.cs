@@ -6,31 +6,30 @@ namespace API_EF.Database.Repository
     public class UsuarioRepository : IUsuarioRepository
     {
         private readonly IConfiguration configuration;
+        private readonly ICommonRepository<Usuario> commonRepository;
 
-        public UsuarioRepository(IConfiguration configuration)
+        public UsuarioRepository(IConfiguration configuration, ICommonRepository<Usuario> commonRepository)
         {
             this.configuration = configuration;
+            this.commonRepository = commonRepository;
         }
 
         public void AddUsuario(Usuario usuario)
         {
-            using var db = new DBContext();
-            db.Usuarios.Add(usuario);
-            db.SaveChanges();
+            commonRepository.Insert(usuario);
+            commonRepository.SaveChange();
         }
 
         public void Delete(int id)
         {
-            using var db = new DBContext();
-            var user = SearchUsuario(db, id);
-            db.Usuarios.Remove(user);
-            db.SaveChanges();
+            var user = SearchUsuario(id);
+            commonRepository.Delete(user);
+            commonRepository.SaveChange();
         }
 
         public List<UsuarioResponse> GetUsuarios()
         {
-            using var db = new DBContext();
-            return db.Usuarios
+            return commonRepository.GetAll()
                 .Select(user => new UsuarioResponse { 
                     id = user.Id,
                     usuario = user.Usuario1,
@@ -43,24 +42,21 @@ namespace API_EF.Database.Repository
 
         public Usuario GetUsuarioById(int idEmpleado)
         {
-            using var db = new DBContext();
-            return db.Usuarios.Find(idEmpleado);
+            return commonRepository.FindById(idEmpleado);
         }
 
         public void SetPassword(int id, string pass)
         {
-            using var db = new DBContext();
-            var user = SearchUsuario(db, id);
-            user.Password = Encrypt(pass, configuration.GetValue<string>("API_EF:Hash"));
-            db.SaveChanges();
+            var user = SearchUsuario(id);
+            user.Password = Encrypt(pass, configuration.GetValue<string>("Hash"));
+            commonRepository.SaveChange();
         }
 
-        private static Usuario SearchUsuario(DBContext db, int id)
+        private Usuario SearchUsuario(/*DBContext db,*/int id)
         {
-            var user = db.Usuarios.FirstOrDefault(u => u.Id == id);
-            if (user == null)
-                throw new Exception($"No se encontro el usuario con id {id}");
-            return user;
+            //var user = db.Usuarios.FirstOrDefault(u => u.Id == id);
+            var user = commonRepository.FindById(id);
+            return user ?? throw new Exception($"No se encontro el usuario con id {id}");
         }
 
         private static string Encrypt(string message, string hash)

@@ -48,8 +48,10 @@ namespace API_EF_TEST.Helper
 
             serviceCollection.AddDbContext<DBContext>(
                 //options => options.UseSqlServer("Data Source=.\\SQLEXPRESS;Initial Catalog=GD2015C1;TrustServerCertificate=True;Integrated Security=True;")
-                options => options.UseSqlServer(configuration.GetConnectionString("DatabaseConnection"))
+                options => options.UseSqlServer(configuration.GetConnectionString("DatabaseConnection")),
+                ServiceLifetime.Transient
             );
+            serviceCollection.AddTransient(typeof(ICommonRepository<>), typeof(CommonRepository<>));
             serviceCollection.AddTransient<IUsuarioRepository, UsuarioRepository>();
             serviceCollection.AddTransient<IProductoRepository, ProductoRepository>();
             //serviceCollection.AddTransient<EmpleadoController>();
