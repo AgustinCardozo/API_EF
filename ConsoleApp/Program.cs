@@ -23,7 +23,7 @@ Document.Create(
                 text.CurrentPageNumber();
                 text.Span(" / ");
                 text.TotalPages();
-            }); ;
+            }); 
 
         });
     }).ShowInPreviewer();
