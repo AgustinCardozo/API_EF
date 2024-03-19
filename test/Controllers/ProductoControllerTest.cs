@@ -1,8 +1,9 @@
 ﻿using API_EF.Controllers;
+using API_EF_TEST.Commons;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace API_EF_TEST
+namespace API_EF_TEST.Controllers
 {
     public class ProductoControllerTest : CommonTest
     {
@@ -13,9 +14,9 @@ namespace API_EF_TEST
         }
 
         [Fact]
-        public async Task GetProductos_Test()
+        public void GetProductos_Test()
         {
-            var response = (ObjectResult)await productoController.Get();
+            var response = (ObjectResult)productoController.Get();
             AssertGetListado(response);
         }
 
@@ -31,7 +32,7 @@ namespace API_EF_TEST
                 return;
 
             }
-            var response = (ObjectResult)await productoController.Get(String.Format("{0:D8}", codigo));
+            var response = (ObjectResult)await productoController.Get(string.Format("{0:D8}", codigo));
             AssertGetData(response);
         }
     }

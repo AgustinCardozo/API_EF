@@ -1,11 +1,11 @@
-﻿using API_EF_TEST.Helper;
+﻿using API_EF_TEST.Helpers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace API_EF_TEST
+namespace API_EF_TEST.Commons
 {
-    public abstract class CommonTest 
+    public abstract class CommonTest
     {
         protected static IServiceScope scope;
 

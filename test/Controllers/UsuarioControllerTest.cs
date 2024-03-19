@@ -1,8 +1,9 @@
 using API_EF.Controllers;
+using API_EF_TEST.Commons;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace API_EF_TEST
+namespace API_EF_TEST.Controllers
 {
     public class UsuarioControllerTest : CommonTest
     {

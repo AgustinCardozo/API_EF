@@ -2,6 +2,7 @@
 using API_EF.Database;
 using API_EF.Database.Repository;
 using API_EF.Database.Repository.Contracts;
+using API_EF.Services;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -9,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace API_EF_TEST.Helper
+namespace API_EF_TEST.Helpers
 {
     public class ServiceProviderHelper
     {
@@ -57,6 +58,7 @@ namespace API_EF_TEST.Helper
             //serviceCollection.AddTransient<EmpleadoController>();
             serviceCollection.AddTransient<ProductoController>();
             serviceCollection.AddTransient<UsuarioController>();
+            serviceCollection.AddTransient<IProductoService, ProductoService>();
 
             var serviceProvider = serviceCollection.BuildServiceProvider(new ServiceProviderOptions()
             {
