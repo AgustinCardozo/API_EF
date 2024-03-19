@@ -2,7 +2,7 @@
 {
     public interface IProductoRepository
     {
-        Task<List<Producto>> Get();
+        List<Producto> Get();
         Task<Producto> Get(string codigo);
     }
 }

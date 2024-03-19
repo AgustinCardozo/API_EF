@@ -1,12 +1,13 @@
 //using API_EF.Database;
 //global: evita tener que declarar estos usings 
 global using API_EF.Database;
-global using API_EF.Models;
-global using API_EF.Models.Request;
 global using API_EF.Database.Repository;
 global using API_EF.Database.Repository.Contracts;
-using Serilog;
+global using API_EF.Models;
+global using API_EF.Models.Request;
+global using API_EF.Services;
 using Newtonsoft.Json;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +21,7 @@ builder.Services.AddDbContext<DBContext>();
 builder.Services.AddTransient(typeof(ICommonRepository<>), typeof(CommonRepository<>));
 builder.Services.AddTransient<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddTransient<IProductoRepository, ProductoRepository>();
+builder.Services.AddTransient<IProductoService, ProductoService>();
 builder.Services.AddCors(policy =>
 {
     policy.AddDefaultPolicy(options => options.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());

@@ -11,9 +11,9 @@ namespace API_EF.Database.Repository
             this.dBContext = dBContext;
         }
 
-        public async Task<List<Producto>> Get()
+        public List<Producto> Get()
         {
-            return await dBContext.Productos.ToListAsync();
+            return dBContext.Productos.ToList();
         }
 
         public async Task<Producto> Get(string codigo)
